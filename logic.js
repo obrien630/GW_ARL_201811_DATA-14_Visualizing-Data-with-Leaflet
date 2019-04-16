@@ -1,47 +1,46 @@
 // We create the tile layer that will be the background of our map.
 console.log("working");
 
-var apiKey = "sk.eyJ1Ijoib2JyaWVuNjMwIiwiYSI6ImNqdWoxZzM3dzFncXQ0M28yNjZha2U0aHAifQ.4OuiRQFGPatOE5nIkQX1OA";
+var apiKey = "pk.eyJ1Ijoib2JyaWVuNjMwIiwiYSI6ImNqdGxvMmRvazBjaW00M3FsaGk3bW5kbzIifQ.BQew5aXlcTDCP54bNyQYGQ";
+
+var graymap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='https://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, Imagery © <a href='https://www.mapbox.com/'>Mapbox</a>",
+  maxZoom: 18,
+  id: "mapbox.streets",
+  accessToken: apiKey
+});
+
+var darkMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+  maxZoom: 18,
+  id: 'mapbox.dark',
+  accessToken: 'pk.eyJ1Ijoic2hla2hhcjAxNCIsImEiOiJjanBraXk1d20wM3czNDNrOWdvMnc5Mmw4In0.CSFCassjDmk_YZR814NhOg'
+});
+
+
+var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+  maxZoom: 18,
+  id: 'mapbox.satellite',
+  accessToken: 'pk.eyJ1Ijoic2hla2hhcjAxNCIsImEiOiJjanBraXk1d20wM3czNDNrOWdvMnc5Mmw4In0.CSFCassjDmk_YZR814NhOg'
+});
+
+// We create the map object with options.
+var map = L.map("mapid", {
+  center: [
+  40.7, -94.5
+  ],
+  zoom: 3,
+  layers: [graymap, darkMap, satellite]
+});
 
 function createMap() {
-
-  var graymap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='https://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, Imagery © <a href='https://www.mapbox.com/'>Mapbox</a>",
-    maxZoom: 18,
-    id: "mapbox.streets",
-    accessToken: apiKey
-  });
-
-  var darkMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox.dark',
-    accessToken: 'pk.eyJ1Ijoic2hla2hhcjAxNCIsImEiOiJjanBraXk1d20wM3czNDNrOWdvMnc5Mmw4In0.CSFCassjDmk_YZR814NhOg'
-  });
-
-
-  var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox.satellite',
-    accessToken: 'pk.eyJ1Ijoic2hla2hhcjAxNCIsImEiOiJjanBraXk1d20wM3czNDNrOWdvMnc5Mmw4In0.CSFCassjDmk_YZR814NhOg'
-  });
 
   var baseLayers = {
     "Gray Map": graymap,
     "Dark": darkMap,
     "Satellite": satellite
   };
-
-
-  // We create the map object with options.
-  var map = L.map("mapid", {
-    center: [
-    40.7, -94.5
-    ],
-    zoom: 3,
-    layers: [graymap, darkMap, satellite]
-  });
 
   L.control.layers(baseLayers).addTo(map);
 
@@ -57,7 +56,7 @@ var plateBoundary = new L.LayerGroup();
   style: function (geoJsonFeature) {
       return {
           weight: 2,
-          color: 'magenta'
+          color: 'blue'
       }
   },
 }).addTo(plateBoundary);
