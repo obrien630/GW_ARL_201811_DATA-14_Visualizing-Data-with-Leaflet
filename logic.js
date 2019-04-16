@@ -135,7 +135,7 @@ var overlays = {
 };
 
 // Then we add the layers to the map.
-overlays.addTo(map);
+L.control.layers(overlays).addTo(map);
 
 // Here we create a legend control object.
 var legend = L.control({
